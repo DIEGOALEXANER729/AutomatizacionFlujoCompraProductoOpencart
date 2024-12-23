@@ -10,13 +10,11 @@ import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import org.hamcrest.Matchers;
-import us.opencart.abstracta.interactions.ClicAgregarCarrito;
-import us.opencart.abstracta.interactions.ClicItemCarrito;
-import us.opencart.abstracta.interactions.ClicVerCarrito;
-import us.opencart.abstracta.interactions.ClicVerificarCarrito;
+import us.opencart.abstracta.interactions.*;
 import us.opencart.abstracta.questions.ValidarProductoCarritoQuestion;
 import us.opencart.abstracta.task.BusquedadProductoTask;
 import us.opencart.abstracta.task.CompletarPasoPago;
+import us.opencart.abstracta.task.IngresoDatosPersonalesTask;
 import us.opencart.abstracta.utils.EsperaImplicita;
 import static org.hamcrest.Matchers.is;
 
@@ -76,8 +74,11 @@ public class CompraProductoStepDefinitions {
     }
     @Cuando("el usuario completa los formularios de información personal y dirección de envío")
     public void elUsuarioCompletaLosFormulariosDeInformaciónPersonalYDirecciónDeEnvío() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        theActorCalled("usuario").attemptsTo(
+                IngresoDatosPersonalesTask.IngresoDatosPersonalesTask(),
+                ClicContinuarDetalleFacturacion.ClicContinuarDetalleFacturacion()
+
+        );
     }
     @Cuando("el usuario selecciona el método de pago y confirma la orden")
     public void elUsuarioSeleccionaElMétodoDePagoYConfirmaLaOrden() {
