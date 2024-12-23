@@ -16,6 +16,7 @@ import us.opencart.abstracta.interactions.ClicVerCarrito;
 import us.opencart.abstracta.interactions.ClicVerificarCarrito;
 import us.opencart.abstracta.questions.ValidarProductoCarritoQuestion;
 import us.opencart.abstracta.task.BusquedadProductoTask;
+import us.opencart.abstracta.task.CompletarPasoPago;
 import us.opencart.abstracta.utils.EsperaImplicita;
 import static org.hamcrest.Matchers.is;
 
@@ -65,11 +66,12 @@ public class CompraProductoStepDefinitions {
     }
     @Cuando("el usuario selecciona la opción Checkout")
     public void elUsuarioSeleccionaLaOpciónCheckout() {
-        theActorCalled("usuario").attemptsTo(ClicVerificarCarrito.ClicVerificarCarrito());
+             theActorCalled("usuario").attemptsTo(ClicVerificarCarrito.ClicVerificarCarrito());
     }
     @Cuando("el usuario elige Guest Checkout para realizar la compra como invitado")
     public void elUsuarioEligeGuestCheckoutParaRealizarLaCompraComoInvitado() {
 
+        theActorCalled("usuario").attemptsTo(CompletarPasoPago.CompletarPasoPago());
 
     }
     @Cuando("el usuario completa los formularios de información personal y dirección de envío")
