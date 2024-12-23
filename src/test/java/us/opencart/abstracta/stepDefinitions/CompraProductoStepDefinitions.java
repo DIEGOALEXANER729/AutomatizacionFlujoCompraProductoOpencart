@@ -5,9 +5,22 @@ import io.cucumber.java.Before;
 import io.cucumber.java.ast.Cuando;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Entonces;
+import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import org.hamcrest.Matchers;
+import us.opencart.abstracta.interactions.ClicAgregarCarrito;
+import us.opencart.abstracta.interactions.ClicItemCarrito;
+import us.opencart.abstracta.interactions.ClicVerCarrito;
+import us.opencart.abstracta.interactions.ClicVerificarCarrito;
+import us.opencart.abstracta.questions.ValidarProductoCarritoQuestion;
+import us.opencart.abstracta.task.BusquedadProductoTask;
+import us.opencart.abstracta.utils.EsperaImplicita;
+import static org.hamcrest.Matchers.is;
+
+
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 
 public class CompraProductoStepDefinitions {
@@ -24,25 +37,38 @@ public class CompraProductoStepDefinitions {
 
         );
     }
-    @Cuando("el usuario agrega el producto producto al carrito")
-    public void elUsuarioAgregaElProductoAlCarrito(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+    @Cuando("el usuario agrega el producto Producto al carrito")
+    public void elUsuarioAgregaElProductoProductoAlCarrito() {
+        theActorCalled("usuario").attemptsTo(
+                BusquedadProductoTask.BusquedadProductoTask(),
+                ClicAgregarCarrito.ClicAgregarCarrito());
+
     }
+
     @Cuando("el usuario visualiza el carrito de compras")
     public void elUsuarioVisualizaElCarritoDeCompras() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        theActorCalled("usuario").attemptsTo(
+                ClicItemCarrito.ClicItemCarrito(),
+                ClicVerCarrito.ClicVerCarrito());
     }
     @Entonces("el carrito debe contener el producto")
     public void elCarritoDebeContenerElProducto() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+       // theActorCalled("usuario").should(seeThat(ValidarProductoCarritoQuestion.validar(), is(true)));
+
+        theActorCalled("usuario").should(
+                seeThat(
+                        "Se visualiza producto",
+                        ValidarProductoCarritoQuestion.validar(),  // pregunta que devuelve un Boolean
+                        Matchers.equalTo(true)  // Compara si el valor es true
+                )
+        );
+
     }
     @Cuando("el usuario selecciona la opción Checkout")
     public void elUsuarioSeleccionaLaOpciónCheckout() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        theActorCalled("usuario").attemptsTo(ClicVerificarCarrito.ClicVerificarCarrito());
     }
     @Cuando("el usuario elige Guest Checkout para realizar la compra como invitado")
     public void elUsuarioEligeGuestCheckoutParaRealizarLaCompraComoInvitado() {
