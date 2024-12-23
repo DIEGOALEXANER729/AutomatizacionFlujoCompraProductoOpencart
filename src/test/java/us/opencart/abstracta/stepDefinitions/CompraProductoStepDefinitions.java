@@ -60,10 +60,7 @@ public class CompraProductoStepDefinitions {
         theActorCalled("usuario").should(
                 seeThat(
                         "Se visualiza producto",
-                        ValidarProductoCarritoQuestion.validar(),  // pregunta que devuelve un Boolean
-                        Matchers.equalTo(true)  // Compara si el valor es true
-                )
-        );
+                        ValidarProductoCarritoQuestion.validar(), is(true)));
 
     }
     @Cuando("el usuario selecciona la opción Checkout")
@@ -72,8 +69,8 @@ public class CompraProductoStepDefinitions {
     }
     @Cuando("el usuario elige Guest Checkout para realizar la compra como invitado")
     public void elUsuarioEligeGuestCheckoutParaRealizarLaCompraComoInvitado() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+
     }
     @Cuando("el usuario completa los formularios de información personal y dirección de envío")
     public void elUsuarioCompletaLosFormulariosDeInformaciónPersonalYDirecciónDeEnvío() {
