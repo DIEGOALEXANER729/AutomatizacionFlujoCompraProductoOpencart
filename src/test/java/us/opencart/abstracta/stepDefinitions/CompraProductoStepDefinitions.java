@@ -12,15 +12,17 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import org.hamcrest.Matchers;
 import us.opencart.abstracta.interactions.*;
 import us.opencart.abstracta.questions.ValidarProductoCarritoQuestion;
+import us.opencart.abstracta.questions.ValidarTextoPedidoRealizadoQuestion;
 import us.opencart.abstracta.task.BusquedadProductoTask;
 import us.opencart.abstracta.task.CompletarPasoPago;
 import us.opencart.abstracta.task.IngresoDatosPersonalesTask;
 import us.opencart.abstracta.utils.EsperaImplicita;
+
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-
-
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
+import static us.opencart.abstracta.userinterfaces.PaginaConfirmacionDatosUI.*;
 
 public class CompraProductoStepDefinitions {
 
@@ -77,19 +79,36 @@ public class CompraProductoStepDefinitions {
         theActorCalled("usuario").attemptsTo(
                 IngresoDatosPersonalesTask.IngresoDatosPersonalesTask(),
                 ClicContinuarDetalleFacturacion.ClicContinuarDetalleFacturacion()
-
         );
     }
     @Cuando("el usuario selecciona el método de pago y confirma la orden")
     public void elUsuarioSeleccionaElMétodoDePagoYConfirmaLaOrden() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        theActorCalled("usuario").attemptsTo(
+                ClicBotonContinuar.clicBotonContinuar(BTN_CONTINUAR_OPCION_ENTREGA, true),
+                ClicBotonContinuar.clicBotonContinuar(CHK_TERMINOS_CONDICIONES, false),
+                ClicBotonContinuar.clicBotonContinuar(BTN_CONTINUAR_METODO_PAGO, true),
+                ClicBotonContinuar.clicBotonContinuar(BTN_CONFIRMAR_PEDIDO, true)
+        );
+        EsperaImplicita.esperaImplicita(5);
+
+
     }
     @Entonces("el mensaje Your order has been placed! debe aparecer en la página de confirmación de la compra")
     public void elMensajeYourOrderHasBeenPlacedDebeAparecerEnLaPáginaDeConfirmaciónDeLaCompra() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        theActorCalled("usuario").should(
+                seeThat("El mensaje de confirmación del pedido está presente",
+                        ValidarTextoPedidoRealizadoQuestion.validarTexto(),
+                        equalTo(true))  // Asegúrate de que sea un Matcher adecuado para Boolean
+        );
+
+
+
+
+
+
     }
+
 
 
 }

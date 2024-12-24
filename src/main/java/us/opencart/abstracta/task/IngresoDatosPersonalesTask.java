@@ -37,11 +37,7 @@ public class IngresoDatosPersonalesTask implements Task {
                 Enter.theValue(datosExcel.get(0).get("Post Code")).into(TXT_CODIGO_POSTAL),
                 SeleccionarOpcionPorValor.seleccionarOpcionPorValor(DROPDOWN_PAIS, "47"),
                 SeleccionarOpcionPorValor.seleccionarOpcionPorValor(DROPDOWN_REGION, "744")
-
-
         );
-        EsperaImplicita.esperaImplicita(5);
-
 
     }
 
